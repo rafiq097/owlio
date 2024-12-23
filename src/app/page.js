@@ -1,6 +1,10 @@
+import Navbar from "@/app/components/Navbar.js";
 
 export default function Home() {
   return (
-    <div>BRO</div>
-    );
+    <div>
+      <Navbar />
+      BRO
+    </div>
+  );
 }
