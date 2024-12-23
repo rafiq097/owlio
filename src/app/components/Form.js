@@ -26,7 +26,7 @@ const formSchema = z.object({
 export default function InputForm() {
     // Initialize useForm with the zod schema for validation
     const form = useForm({
-        resolver: zodResolver(formSchema),
+        // resolver: zodResolver(formSchema),
         defaultValues: {
             username: "",
         },
@@ -46,7 +46,7 @@ export default function InputForm() {
                         name="username"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Username</FormLabel>
+                                <FormLabel>LeetCode</FormLabel>
                                 <FormControl>
                                     <Input placeholder="Username" {...field} />
                                 </FormControl>
@@ -62,7 +62,7 @@ export default function InputForm() {
                         name="email"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel>CodeChef</FormLabel>
                                 <FormControl>
                                     <Input placeholder="Email" {...field} />
                                 </FormControl>
@@ -75,7 +75,7 @@ export default function InputForm() {
                         name="password"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Password</FormLabel>
+                                <FormLabel>CodeForces</FormLabel>
                                 <FormControl>
                                     <Input placeholder="Password" type="password" {...field} />
                                 </FormControl>
@@ -88,7 +88,7 @@ export default function InputForm() {
                         name="confirmPassword"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Confirm Password</FormLabel>
+                                <FormLabel>GFG</FormLabel>
                                 <FormControl>
                                     <Input placeholder="Confirm Password" type="password" {...field} />
                                 </FormControl>
