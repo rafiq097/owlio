@@ -16,88 +16,135 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-// Define the form validation schema using zod
-const formSchema = z.object({
-    username: z.string().min(2, {
-        message: "Username must be at least 2 characters.",
-    }),
-})
-
 export default function InputForm() {
-    // Initialize useForm with the zod schema for validation
-    const form = useForm({
-        // resolver: zodResolver(formSchema),
-        defaultValues: {
-            username: "",
-        },
-    })
+    const C1 = process.env.NEXT_PUBLIC_1C;
+    const C2 = process.env.NEXT_PUBLIC_2C;
+    // const C3 = process.env.NEXT_PUBLIC_3C;
+    // const C4 = process.env.NEXT_PUBLIC_4C;
+    // const C5 = process.env.NEXT_PUBLIC_5C;
 
-    // Handle form submission
-    const onSubmit = (data) => {
-        console.log("Form Submitted", data)
+    const form = useForm({})
+
+    async function getLC (id) {
+        try {
+            const res = await fetch(`${C1}${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+    
+            const json = await res.json();
+            console.log("LC Data:", json);
+            return json;
+        }
+        catch(err) {
+            console.log(err);
+        }
+    }
+
+    async function getCC (id) {
+        try {
+            const res = await fetch(`${C2}${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+            // if (!res.ok) {
+            //     throw new Error(`HTTP error! status: ${res.status}`);
+            // }
+    
+            const json = await res.json();
+            console.log("CC Data:", json);
+            return json;
+        }
+        catch(err) {
+            console.log(err);
+        }
+    }
+
+    // async function getCF (id) {
+    //     try {
+    //         const res = await fetch(`${C5}${id}`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         });
+    
+    //         const json = await res.json();
+    //         console.log("CF Data:", json);
+    //         return json;
+    //     }
+    //     catch(err) {
+    //         console.log(err);
+    //     }
+    // }
+    
+    async function onSubmit(data) {
+        console.log(data);
+        const LC = await getLC(data.leetcode);
+        const CC = await getCC(data.codechef);
+        // const CF = await getCF(data.codeforces);
+
+        console.log(LC);
+        console.log(CC);
+        // console.log(CF);
     }
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid  grid-cols-1 md:grid-cols-3 gap-4">
                     <FormField
                         control={form.control}
-                        name="username"
+                        name="leetcode"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>LeetCode</FormLabel>
                                 <FormControl>
                                     <Input placeholder="Username" {...field} />
                                 </FormControl>
-                                <FormDescription>
-                                    This is your public display name.
-                                </FormDescription>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
                     <FormField
                         control={form.control}
-                        name="email"
+                        name="codechef"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>CodeChef</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Email" {...field} />
+                                    <Input placeholder="Username" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
-                    <FormField
+                    {/* <FormField
                         control={form.control}
-                        name="password"
+                        name="codeforces"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>CodeForces</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Password" type="password" {...field} />
+                                    <Input placeholder="Username" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="confirmPassword"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>GFG</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Confirm Password" type="password" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                    /> */}
                 </div>
-                <Button type="submit">Submit</Button>
+                <div className="flex justify-center">
+                    <Button type="submit">Submit</Button>
+                </div>
             </form>
         </Form>
     );

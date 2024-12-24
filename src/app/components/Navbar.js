@@ -13,7 +13,7 @@ export default function Navbar() {
         
         <div className="flex items-center justify-between py-3 md:py-5 md:block">
           <Link href="/">
-            <h1 className="text-3xl font-bold text-blue-600">Owl</h1>
+            <h1 className="text-3xl font-bold text-black-100">Owl</h1>
           </Link>
 
           <div className="md:hidden">
@@ -32,16 +32,16 @@ export default function Navbar() {
           } md:block md:justify-end flex-1 pb-3 mt-8 md:pb-0 md:mt-0`}
         >
           <ul className="flex flex-col md:flex-row justify-end space-y-6 md:space-x-6 md:space-y-0">
-            <li className="text-gray-600 hover:text-blue-600">
+            <li className="text-gray-600 hover:text-black-600">
               <Link href="/">Home</Link>
             </li>
+            <li className="text-gray-600 hover:text-black-600">
+              <Link href="/xplore">Xplore</Link>
+            </li>
             <li className="text-gray-600 hover:text-blue-600">
-              <Link href="/">Xplore</Link>
+              <Link href="/profile  ">Profiles</Link>
             </li>
             {/* <li className="text-gray-600 hover:text-blue-600">
-              <Link href="/">About Us</Link>
-            </li>
-            <li className="text-gray-600 hover:text-blue-600">
               <Link href="/">Contact Us</Link>
             </li> */}
           </ul>
