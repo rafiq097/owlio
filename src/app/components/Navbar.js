@@ -2,10 +2,11 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Menu, Search } from "lucide-react"
+import { Menu } from "lucide-react"
 
 export default function Navbar() {
   const [state, setState] = useState(false);
+
 
   return (
     <nav className="bg-white w-full border-b md:border-0">
