@@ -16,92 +16,96 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
+
+export async function getLC (C1, id) {
+    try {
+        const res = await fetch(`${C1}${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const json = await res.json();
+        console.log("LC Data:", json);
+        return json;
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
+export async function getCC (C2, id) {
+    try {
+        const res = await fetch(`${C2}${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        // if (!res.ok) {
+        //     throw new Error(`HTTP error! status: ${res.status}`);
+        // }
+
+        const json = await res.json();
+        console.log("CC Data:", json);
+        return json;
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
+// export async function getCF (id) {
+//     try {
+//         const res = await fetch(`${C5}${id}`, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//         });
+
+//         const json = await res.json();
+//         console.log("CF Data:", json);
+//         return json;
+//     }
+//     catch(err) {
+//         console.log(err);
+//     }
+// }
+
+
 export default function InputForm() {
-    const C1 = process.env.NEXT_PUBLIC_1C;
-    const C2 = process.env.NEXT_PUBLIC_2C;
+    // const C1 = process.env.NEXT_PUBLIC_1C;
+    // const C2 = process.env.NEXT_PUBLIC_2C;
     // const C3 = process.env.NEXT_PUBLIC_3C;
     // const C4 = process.env.NEXT_PUBLIC_4C;
     // const C5 = process.env.NEXT_PUBLIC_5C;
 
     const form = useForm({})
 
-    async function getLC (id) {
-        try {
-            const res = await fetch(`${C1}${id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-    
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
-    
-            const json = await res.json();
-            console.log("LC Data:", json);
-            return json;
-        }
-        catch(err) {
-            console.log(err);
-        }
-    }
-
-    async function getCC (id) {
-        try {
-            const res = await fetch(`${C2}${id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-    
-            // if (!res.ok) {
-            //     throw new Error(`HTTP error! status: ${res.status}`);
-            // }
-    
-            const json = await res.json();
-            console.log("CC Data:", json);
-            return json;
-        }
-        catch(err) {
-            console.log(err);
-        }
-    }
-
-    // async function getCF (id) {
-    //     try {
-    //         const res = await fetch(`${C5}${id}`, {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         });
-    
-    //         const json = await res.json();
-    //         console.log("CF Data:", json);
-    //         return json;
-    //     }
-    //     catch(err) {
-    //         console.log(err);
-    //     }
-    // }
-    
     async function onSubmit(data) {
         console.log(data);
-        const LC = await getLC(data.leetcode);
-        const CC = await getCC(data.codechef);
+        // const LC = await getLC(data.leetcode);
+        // const CC = await getCC(data.codechef);
         // const CF = await getCF(data.codeforces);
-
-        console.log(LC);
-        console.log(CC);
+        // console.log(LC);
+        // console.log(CC);
         // console.log(CF);
+
+        localStorage.setItem("leetcode", data.leetcode);
+        localStorage.setItem("codechef", data.codechef);
     }
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <div className="grid  grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid  grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
                         control={form.control}
                         name="leetcode"
