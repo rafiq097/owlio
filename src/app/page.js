@@ -3,8 +3,6 @@
 import Navbar from "@/app/components/Navbar.js";
 import { getLC, getCC } from "@/app/components/Form.js";
 import { useState, useEffect } from "react";
-import { fetchAuthUserAction } from "@/actions";
-import Logout from "@/components/logout/page.js";
 import { redirect } from "next/navigation";
 
 export default function Home() {
@@ -30,11 +28,6 @@ export default function Home() {
     async function fetchData() {
       const r1 = await getLC(C1, localStorage.getItem("leetcode"));
       const r2 = await getCC(C2, localStorage.getItem("codechef"));
-
-      const currentUser = await fetchAuthUserAction();
-
-      console.log(currentUser);
-      if (!currentUser?.success) redirect("/sign-in");
 
       setLc(r1);
       setCc(r2);
