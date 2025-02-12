@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
-
 import { Button } from "@/components/ui/button";
 import {
     Form,
@@ -13,11 +12,10 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
 import { getLC } from "@/app/components/Form";
 
 export default function XplorePage() {
-    const [stats, setStats] = useState([{}, {}, {}, {}]);
+    const [stats, setStats] = useState([{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]);
     const [names, setNames] = useState([]);
     const form = useForm();
 
@@ -43,22 +41,25 @@ export default function XplorePage() {
     }, []);
 
     async function onSubmit(data) {
-        // const usernames = [data.friend1, data.friend2, data.friend3, data.friend4];
-        const previousUsernamesString = localStorage.getItem("usernames");
-        const previousUsernames = previousUsernamesString
-            ? JSON.parse(previousUsernamesString)
-            : [null, null, null, null];
+        const temp = localStorage.getItem("usernames");
+        const prev = temp ? JSON.parse(temp) : Array(10).fill(null);
 
         const usernames = [
-            data.friend1 || previousUsernames[0],
-            data.friend2 || previousUsernames[1],
-            data.friend3 || previousUsernames[2],
-            data.friend4 || previousUsernames[3],
+            data.friend1 || prev[0],
+            data.friend2 || prev[1],
+            data.friend3 || prev[2],
+            data.friend4 || prev[3],
+            data.friend5 || prev[4],
+            data.friend6 || prev[5],
+            data.friend7 || prev[6],
+            data.friend8 || prev[7],
+            data.friend9 || prev[8],
+            data.friend10 || prev[9],
         ];
-        
-        setNames(usernames);
 
+        setNames(usernames);
         localStorage.setItem("usernames", JSON.stringify(usernames));
+
         const updatedStats = await Promise.all(
             usernames.map(async (username) => {
                 if (username) {
@@ -88,15 +89,14 @@ export default function XplorePage() {
         <div className="p-8 bg-gray-100 min-h-screen">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4"
-                    >
-                        {[1, 2, 3, 4].map((friend, index) => (
+                    <div className="flex flex-row gap-4 overflow-x-auto p-2">
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((friend, index) => (
                             <FormField
                                 key={index}
                                 control={form.control}
                                 name={`friend${friend}`}
                                 render={({ field }) => (
-                                    <FormItem>
+                                    <FormItem className="min-w-[200px]">
                                         <FormLabel>Friend {friend}</FormLabel>
                                         <FormControl>
                                             <Input placeholder="LC Username" {...field} />
@@ -113,16 +113,17 @@ export default function XplorePage() {
                 </form>
             </Form>
 
-            <div className="mt-8 space-y-0 grid grid-cols-1 md:grid-cols-4 gap-4">
+            {/* Horizontally Scrollable Stats Boxes */}
+            <div className="flex flex-row gap-4 overflow-x-auto p-2 mt-8">
                 {stats.map((stat, index) => (
                     <div
                         key={index}
-                        className="bg-white shadow-md rounded-xl p-4 flex flex-col justify-between min-h-[350px]"
+                        className="bg-white shadow-md rounded-xl p-4 flex flex-col justify-between min-h-[350px] min-w-[300px]"
                     >
                         {stat?.totalSolved ? (
-                            <div className="bg-white shadow-md rounded-xl p-4">
+                            <div>
                                 <h2 className="text-lg font-semibold text-gray-800 mb-4">
-                                    Friend {index + 1}: {names[index]} LeetCode Stats
+                                    Friend {index + 1}: {names[index]}
                                 </h2>
                                 <p>
                                     <strong>Total Solved:</strong> {stat?.totalSolved} /{" "}
