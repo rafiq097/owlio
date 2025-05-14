@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 
 
-export async function getLC (C1, id) {
+export async function getLC(C1, id) {
     try {
         const res = await fetch(`${C1}${id}`, {
             method: 'GET',
@@ -34,12 +34,22 @@ export async function getLC (C1, id) {
         console.log("LC Data:", json);
         return json;
     }
-    catch(err) {
+    catch (err) {
         console.log(err);
     }
 }
 
-export async function getCC (C2, id) {
+export async function getLC2(id) {
+    try {
+        const res = await fetch(`/api/leetcode?username=${id}`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return await res.json();
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export async function getCC(C2, id) {
     try {
         const res = await fetch(`${C2}${id}`, {
             method: 'GET',
@@ -56,7 +66,7 @@ export async function getCC (C2, id) {
         console.log("CC Data:", json);
         return json;
     }
-    catch(err) {
+    catch (err) {
         console.log(err);
     }
 }
