@@ -140,33 +140,33 @@ export default function XplorePage() {
         if (!submissions || submissions.length === 0) return {};
 
         const grouped = {};
-        
+
         submissions.forEach((submission, index) => {
             const dateCategory = getDateCategory(submission.timestamp);
-            
+
             if (!grouped[dateCategory]) {
                 grouped[dateCategory] = [];
             }
-            
-            grouped[dateCategory].push({...submission, index});
+
+            grouped[dateCategory].push({ ...submission, index });
         });
-        
+
         const sortedDates = Object.keys(grouped).sort((a, b) => {
             if (a === "Today") return -1;
             if (b === "Today") return 1;
             if (a === "Yesterday") return -1;
             if (b === "Yesterday") return 1;
-            
+
             const dateA = new Date(a);
             const dateB = new Date(b);
             return dateB - dateA;
         });
-        
+
         const result = {};
         sortedDates.forEach(date => {
             result[date] = grouped[date];
         });
-        
+
         return result;
     }
 
@@ -192,29 +192,17 @@ export default function XplorePage() {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 px-4 py-8 md:px-8">
-            <div className="max-w-7xl mx-auto">
-                <Card className="mb-8 relative">
-                    <CardHeader className="pb-2">
-                        <CardTitle className="text-xl flex items-center gap-2">
-                            <User size={20} className="text-blue-600" />
-                            Enter LeetCode Usernames
-                        </CardTitle>
-                    </CardHeader>
+            <div className="max-w-7xl mx-auto flex flex-col min-h-[calc(100vh-4rem)]">
+                <Card className="mb-4 relative">
                     <CardContent>
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)}>
-                                <div 
+                                <div
                                     ref={formScrollContainerRef}
-                                    className="flex overflow-x-auto py-4 space-x-4 snap-x scroll-smooth scrollbar-hide touch-pan-x"
-                                    style={{
-                                        scrollbarWidth: 'none',
-                                        msOverflowStyle: 'none',
-                                        WebkitOverflowScrolling: 'touch',
-                                        scrollSnapType: 'x mandatory'
-                                    }}
+                                    className="flex overflow-x-auto py-4 space-x-4"
                                 >
                                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((friend, index) => (
-                                        <div key={index} className="snap-center min-w-[200px] flex-shrink-0">
+                                        <div key={index} className="min-w-[200px] flex-shrink-0">
                                             <FormField
                                                 control={form.control}
                                                 name={`friend${friend}`}
@@ -238,7 +226,7 @@ export default function XplorePage() {
                                         </div>
                                     ))}
                                 </div>
-                                <div className="flex justify-center mt-6">
+                                <div className="flex justify-center mt-4">
                                     <Button
                                         type="submit"
                                         className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6"
@@ -251,28 +239,22 @@ export default function XplorePage() {
                         </Form>
                     </CardContent>
                 </Card>
-
+    
                 {loading ? (
                     <div className="flex justify-center items-center py-12">
                         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
                     </div>
                 ) : (
-                    <div className="relative">
-                        <div 
+                    <div className="flex-grow flex flex-col min-h-[calc(100vh-300px)]">
+                        <div
                             ref={scrollContainerRef}
-                            className="flex overflow-x-auto py-4 pb-6 space-x-6 snap-x scroll-smooth scrollbar-hide touch-pan-x"
-                            style={{
-                                scrollbarWidth: 'none',
-                                msOverflowStyle: 'none',
-                                WebkitOverflowScrolling: 'touch',
-                                scrollSnapType: 'x mandatory'
-                            }}
+                            className="flex overflow-x-auto py-4 space-x-4"
                         >
                             {stats.map((stat, index) => (
                                 names[index] && (
                                     <div
                                         key={index}
-                                        className="snap-center bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow min-w-[350px] max-w-[350px] flex-shrink-0 flex flex-col border border-gray-200 overflow-hidden"
+                                        className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow min-w-[350px] max-w-[350px] flex-shrink-0 flex flex-col border border-gray-200 overflow-hidden h-full"
                                     >
                                         <div className="bg-gradient-to-r from-blue-600 to-blue-800 px-6 py-4">
                                             <div className="flex items-center justify-between">
@@ -285,8 +267,8 @@ export default function XplorePage() {
                                                 </Badge>
                                             </div>
                                         </div>
-
-                                        <div className="p-5 flex-grow overflow-y-auto max-h-[600px] cursor-grab active:cursor-grabbing">
+    
+                                        <div className="p-5 flex-grow">
                                             {stat?.totalSolved ? (
                                                 <>
                                                     <div className="grid grid-cols-2 gap-3 mb-4">
@@ -296,21 +278,21 @@ export default function XplorePage() {
                                                                 {stat?.totalSolved} <span className="text-sm text-blue-600">/ {stat?.totalQuestions}</span>
                                                             </p>
                                                         </div>
-
+    
                                                         <div className="bg-green-50 rounded-lg p-3 text-center">
                                                             <p className="text-xs text-green-700 font-medium">Easy</p>
                                                             <p className="text-xl font-bold text-green-900">
                                                                 {stat?.easySolved} <span className="text-sm text-green-600">/ {stat?.totalEasy}</span>
                                                             </p>
                                                         </div>
-
+    
                                                         <div className="bg-amber-50 rounded-lg p-3 text-center">
                                                             <p className="text-xs text-amber-700 font-medium">Medium</p>
                                                             <p className="text-xl font-bold text-amber-900">
                                                                 {stat?.mediumSolved} <span className="text-sm text-amber-600">/ {stat?.totalMedium}</span>
                                                             </p>
                                                         </div>
-
+    
                                                         <div className="bg-red-50 rounded-lg p-3 text-center">
                                                             <p className="text-xs text-red-700 font-medium">Hard</p>
                                                             <p className="text-xl font-bold text-red-900">
@@ -318,12 +300,12 @@ export default function XplorePage() {
                                                             </p>
                                                         </div>
                                                     </div>
-
+    
                                                     <div>
                                                         <h3 className="text-md font-semibold text-gray-800 mb-3 flex items-center gap-2">
                                                             <Clock size={16} /> Recent Submissions
                                                         </h3>
-
+    
                                                         {stat?.recentSubmissions?.length > 0 ? (
                                                             <div className="space-y-6">
                                                                 {Object.entries(groupSubmissionsByDate(stat.recentSubmissions)).map(([date, submissions]) => (
@@ -341,22 +323,22 @@ export default function XplorePage() {
                                                                                     <p className="text-gray-800 mb-2 text-base font-bold" title={submission.title}>
                                                                                         {submission.title}
                                                                                     </p>
-
+    
                                                                                     <div className="flex justify-between items-center mb-3">
                                                                                         <Badge className={`${getStatusBg(submission.statusDisplay)} ${getStatusColor(submission.statusDisplay)} border-0 text-sm py-1 px-2`}>
                                                                                             {submission.statusDisplay}
                                                                                         </Badge>
-
+    
                                                                                         <Badge variant="outline" className="text-gray-700 font-bold text-sm py-1 px-2">
                                                                                             {submission.lang}
                                                                                         </Badge>
                                                                                     </div>
-
+    
                                                                                     <p className="text-sm text-gray-800 font-bold mb-4 flex items-center gap-1">
                                                                                         <Clock size={14} />
                                                                                         {convertToIST(submission.timestamp)}
                                                                                     </p>
-
+    
                                                                                     <div className="flex gap-3">
                                                                                         <a
                                                                                             href={`https://leetcode.com/problems/${newStats[index][submission.index]?.titleSlug}`}
@@ -366,9 +348,9 @@ export default function XplorePage() {
                                                                                         >
                                                                                             <ArrowRight size={16} /> Problem
                                                                                         </a>
-
+    
                                                                                         <a
-                                                                                            href={`https://leetcode.com${newStats[index][submission.index]?.url}`}
+                                                                                            href={`https://leetcode.com/${newStats[index][submission.index]?.url}`}
                                                                                             target="_blank"
                                                                                             rel="noopener noreferrer"
                                                                                             className={`flex-1 ${getStatusBg(submission.statusDisplay)} ${getStatusColor(submission.statusDisplay)} text-center px-3 py-2 rounded-md text-sm font-medium transition-colors flex justify-center items-center gap-2`}
@@ -400,7 +382,7 @@ export default function XplorePage() {
                                     </div>
                                 )
                             ))}
-
+    
                             {!names.some(name => name) && (
                                 <div className="flex items-center justify-center w-full py-16">
                                     <div className="text-center text-gray-500">
@@ -414,22 +396,6 @@ export default function XplorePage() {
                     </div>
                 )}
             </div>
-            
-            <style jsx global>{`
-                .scrollbar-hide::-webkit-scrollbar {
-                    display: none;
-                }
-                
-                /* Enable pointer events on the content */
-                .overflow-y-auto {
-                    pointer-events: auto;
-                }
-                
-                /* Change cursor to indicate scrollable */
-                .cursor-grab:active {
-                    cursor: grabbing;
-                }
-            `}</style>
         </div>
     );
 }
