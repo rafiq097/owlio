@@ -350,7 +350,7 @@ export default function XplorePage() {
                                                                                         </a>
     
                                                                                         <a
-                                                                                            href={`https://leetcode.com/${newStats[index][submission.index]?.url}`}
+                                                                                            href={`https://leetcode.com${newStats[index][submission.index]?.url}`}
                                                                                             target="_blank"
                                                                                             rel="noopener noreferrer"
                                                                                             className={`flex-1 ${getStatusBg(submission.statusDisplay)} ${getStatusColor(submission.statusDisplay)} text-center px-3 py-2 rounded-md text-sm font-medium transition-colors flex justify-center items-center gap-2`}
