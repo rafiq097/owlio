@@ -24,18 +24,7 @@ export default function XplorePage() {
     const [loading, setLoading] = useState(false);
     const form = useForm();
     const scrollContainerRef = useRef(null);
-
-    const scrollLeft = () => {
-        if (scrollContainerRef.current) {
-            scrollContainerRef.current.scrollBy({ left: -350, behavior: 'smooth' });
-        }
-    };
-
-    const scrollRight = () => {
-        if (scrollContainerRef.current) {
-            scrollContainerRef.current.scrollBy({ left: 350, behavior: 'smooth' });
-        }
-    };
+    const formScrollContainerRef = useRef(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -204,11 +193,7 @@ export default function XplorePage() {
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 px-4 py-8 md:px-8">
             <div className="max-w-7xl mx-auto">
-                <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-                    LeetCode Stats Explorer
-                </h1>
-
-                <Card className="mb-8">
+                <Card className="mb-8 relative">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-xl flex items-center gap-2">
                             <User size={20} className="text-blue-600" />
@@ -217,33 +202,43 @@ export default function XplorePage() {
                     </CardHeader>
                     <CardContent>
                         <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-4">
+                            <form onSubmit={form.handleSubmit(onSubmit)}>
+                                <div 
+                                    ref={formScrollContainerRef}
+                                    className="flex overflow-x-auto py-4 space-x-4 snap-x scroll-smooth scrollbar-hide touch-pan-x"
+                                    style={{
+                                        scrollbarWidth: 'none',
+                                        msOverflowStyle: 'none',
+                                        WebkitOverflowScrolling: 'touch',
+                                        scrollSnapType: 'x mandatory'
+                                    }}
+                                >
                                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((friend, index) => (
-                                        <FormField
-                                            key={index}
-                                            control={form.control}
-                                            name={`friend${friend}`}
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="flex items-center gap-1">
-                                                        <User size={14} className="text-blue-500" /> Bro {friend}
-                                                    </FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            placeholder="LeetCode Username"
-                                                            {...field}
-                                                            defaultValue={names[index] || ""}
-                                                            className="focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
+                                        <div key={index} className="snap-center min-w-[200px] flex-shrink-0">
+                                            <FormField
+                                                control={form.control}
+                                                name={`friend${friend}`}
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel className="flex items-center gap-1">
+                                                            <User size={14} className="text-blue-500" /> Bro {friend}
+                                                        </FormLabel>
+                                                        <FormControl>
+                                                            <Input
+                                                                placeholder="LeetCode Username"
+                                                                {...field}
+                                                                defaultValue={names[index] || ""}
+                                                                className="focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full"
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </div>
                                     ))}
                                 </div>
-                                <div className="flex justify-center">
+                                <div className="flex justify-center mt-6">
                                     <Button
                                         type="submit"
                                         className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6"
@@ -263,16 +258,6 @@ export default function XplorePage() {
                     </div>
                 ) : (
                     <div className="relative">
-                        <div className="absolute top-1/2 -left-4 hidden md:flex items-center justify-center z-10">
-                            <button 
-                                onClick={scrollLeft}
-                                className="rounded-full bg-white shadow-md p-2 focus:outline-none hover:bg-gray-100 active:bg-gray-200" 
-                                aria-label="Scroll left"
-                            >
-                                <ArrowRight size={20} className="transform rotate-180 text-gray-600" />
-                            </button>
-                        </div>
-
                         <div 
                             ref={scrollContainerRef}
                             className="flex overflow-x-auto py-4 pb-6 space-x-6 snap-x scroll-smooth scrollbar-hide touch-pan-x"
@@ -287,7 +272,7 @@ export default function XplorePage() {
                                 names[index] && (
                                     <div
                                         key={index}
-                                        className="snap-center bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 min-w-[350px] max-w-[350px] flex-shrink-0 flex flex-col border border-gray-200 overflow-hidden"
+                                        className="snap-center bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow min-w-[350px] max-w-[350px] flex-shrink-0 flex flex-col border border-gray-200 overflow-hidden"
                                     >
                                         <div className="bg-gradient-to-r from-blue-600 to-blue-800 px-6 py-4">
                                             <div className="flex items-center justify-between">
@@ -301,7 +286,7 @@ export default function XplorePage() {
                                             </div>
                                         </div>
 
-                                        <div className="p-5 flex-grow">
+                                        <div className="p-5 flex-grow overflow-y-auto max-h-[600px] cursor-grab active:cursor-grabbing">
                                             {stat?.totalSolved ? (
                                                 <>
                                                     <div className="grid grid-cols-2 gap-3 mb-4">
@@ -383,7 +368,7 @@ export default function XplorePage() {
                                                                                         </a>
 
                                                                                         <a
-                                                                                            href={`https://leetcode.com/${newStats[index][submission.index]?.url}`}
+                                                                                            href={`https://leetcode.com${newStats[index][submission.index]?.url}`}
                                                                                             target="_blank"
                                                                                             rel="noopener noreferrer"
                                                                                             className={`flex-1 ${getStatusBg(submission.statusDisplay)} ${getStatusColor(submission.statusDisplay)} text-center px-3 py-2 rounded-md text-sm font-medium transition-colors flex justify-center items-center gap-2`}
@@ -426,16 +411,6 @@ export default function XplorePage() {
                                 </div>
                             )}
                         </div>
-
-                        <div className="absolute top-1/2 -right-4 hidden md:flex items-center justify-center z-10">
-                            <button 
-                                onClick={scrollRight}
-                                className="rounded-full bg-white shadow-md p-2 focus:outline-none hover:bg-gray-100 active:bg-gray-200" 
-                                aria-label="Scroll right"
-                            >
-                                <ArrowRight size={20} className="text-gray-600" />
-                            </button>
-                        </div>
                     </div>
                 )}
             </div>
@@ -443,6 +418,16 @@ export default function XplorePage() {
             <style jsx global>{`
                 .scrollbar-hide::-webkit-scrollbar {
                     display: none;
+                }
+                
+                /* Enable pointer events on the content */
+                .overflow-y-auto {
+                    pointer-events: auto;
+                }
+                
+                /* Change cursor to indicate scrollable */
+                .cursor-grab:active {
+                    cursor: grabbing;
                 }
             `}</style>
         </div>
