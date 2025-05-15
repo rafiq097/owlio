@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
-    username: { type: String, required: true },
-    password: { type: String, required: true },
+    email: { type: String, required: true },
+    // password: { type: String, required: true },
     leetcode: String,
     codechef: String,
     friends: [
         {
-            name: { type: String, },
+            // name: { type: String, },
             leetcode: { type: String, },
-            codechef: { type: String, },
+            // codechef: { type: String, },
         },
     ]
 });
