@@ -16,6 +16,7 @@ import { getLC, getLC2, getLC3 } from "@/app/components/Form";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Award, CheckCircle, Clock, Code, User, Calendar, Eye, EyeOff } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 export default function XplorePage() {
   const [stats, setStats] = useState(Array(10).fill({}));
@@ -28,6 +29,8 @@ export default function XplorePage() {
   const form = useForm();
   const scrollContainerRef = useRef(null);
   const formScrollContainerRef = useRef(null);
+  const { data: session } = useSession();
+  const userEmail = session?.user?.email;
 
   useEffect(() => {
     async function fetchData() {
@@ -84,6 +87,19 @@ export default function XplorePage() {
 
     setNames(usernames);
     localStorage.setItem("usernames", JSON.stringify(usernames));
+
+    if (userEmail) {
+      await fetch("/api/user/update-friends", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: userEmail,
+          friends: usernames.filter(Boolean).map((username) => ({
+            leetcode: username,
+          })),
+        }),
+      });
+    }    
 
     const updatedStats = await Promise.all(
       usernames.map(async (username) => {

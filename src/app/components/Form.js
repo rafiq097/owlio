@@ -1,20 +1,17 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
-
 import { Button } from "@/components/ui/button"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useSession } from "next-auth/react";
 
 
 export async function getLC(C1, id) {
@@ -101,6 +98,10 @@ export async function getCC(C2, id) {
 
 
 export default function InputForm() {
+    const { data: session } = useSession();
+    const userEmail = session?.user?.email;
+    console.log(session, userEmail);
+
     // const C1 = process.env.NEXT_PUBLIC_1C;
     // const C2 = process.env.NEXT_PUBLIC_2C;
     // const C3 = process.env.NEXT_PUBLIC_3C;
@@ -117,6 +118,16 @@ export default function InputForm() {
         // console.log(LC);
         // console.log(CC);
         // console.log(CF);
+
+        await fetch("/api/user/update-profile", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: userEmail,
+              leetcode: data.leetcode,
+              codechef: data.codechef,
+            }),
+        });
 
         localStorage.setItem("leetcode", data.leetcode);
         localStorage.setItem("codechef", data.codechef);

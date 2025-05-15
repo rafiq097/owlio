@@ -22,12 +22,12 @@ export default function HomeClient({ user }) {
     return "text-red-500";
   }
 
-  useEffect(() => {
-    if (user?.email) {
-      console.log(user);
-      axios.post("/api/save", { email: user.email });
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user?.email) {
+  //     console.log(user);
+  //     axios.post("/api/save", { email: user.email });
+  //   }
+  // }, [user]);
 
   useEffect(() => {
     async function fetchData() {
