@@ -77,9 +77,6 @@ export default function HomeClient({ user }) {
           <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
             Welcome to Owlio
           </h1>
-          <p className="text-gray-300 max-w-md mx-auto">
-            Track your coding progress across platforms and improve your skills
-          </p>
         </div>
         <form action={signInWithGoogle}>
           <button
