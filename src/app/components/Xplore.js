@@ -38,6 +38,17 @@ export default function XplorePage() {
       const usernames = usernamesString ? JSON.parse(usernamesString) : [];
       setNames(usernames);
 
+      if (userEmail) {
+        await fetch("/api/user/update-friends", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: userEmail,
+            friends: usernames.filter(Boolean),
+          }),
+        });
+      }   
+
       if (usernames.some(username => username)) {
         setLoading(true);
 
@@ -94,9 +105,7 @@ export default function XplorePage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: userEmail,
-          friends: usernames.filter(Boolean).map((username) => ({
-            leetcode: username,
-          })),
+          friends: usernames.filter(Boolean),
         }),
       });
     }    

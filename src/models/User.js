@@ -5,13 +5,7 @@ const UserSchema = new mongoose.Schema({
     // password: { type: String, required: true },
     leetcode: String,
     codechef: String,
-    friends: [
-        {
-            // name: { type: String, },
-            leetcode: { type: String, },
-            // codechef: { type: String, },
-        },
-    ]
+    friends: [String],
 });
 
 const User = mongoose.models.User || mongoose.model("User", UserSchema);

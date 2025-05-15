@@ -11,13 +11,23 @@ export async function POST(req) {
 
     await connectDB();
 
-    const updatedUser = await User.findOneAndUpdate(
-      { email },
-      { friends },
-      { new: true, upsert: true }
-    );
+    let updatedFriends = friends;
+    const user = await User.findOne({ email });
 
-    return Response.json({ success: true, user: updatedUser });
+    if (user) {
+      const combined = [...user.friends, ...friends];
+      updatedFriends = [...new Set(combined)];
+      const updatedUser = await User.findOneAndUpdate(
+        { email },
+        { $set: { friends: updatedFriends } },
+        { new: true, upsert: true }
+      );
+      return Response.json({ success: true, user: updatedUser });
+    }
+    else {
+      const newUser = await User.create({ email, friends });
+      return Response.json({ success: true, user: newUser });
+    }
   } catch (error) {
     console.error("Update friends error:", error);
     return Response.json({ error: "Failed to update friends" }, { status: 500 });
