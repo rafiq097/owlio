@@ -10,7 +10,7 @@ export async function GET(request) {
     }
   
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_2LC}/${username}/submissions`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_2LC}${username}/submissions`);
   
       if (!res.ok) {
         return new Response(JSON.stringify({ error: "Failed to fetch data" }), {

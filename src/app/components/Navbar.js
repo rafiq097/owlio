@@ -38,9 +38,13 @@ export default function Navbar({ user }) {
             <li className="text-gray-600 hover:text-black-600">
               <Link href="/xplore">Xplore</Link>
             </li>
-            <li className="text-gray-600 hover:text-blue-600">
+            <li className="text-gray-600 hover:text-black-600">
               <Link href="/profile">Profiles</Link>
             </li>
+            {user?.email == process.env.NEXT_PUBLIC_ADMIN &&
+              <li className="text-gray-600 hover:text-blue-600">
+                <Link href="/admin">Admin</Link>
+              </li>}
             {user && (
               <li>
                 <LogoutButton />
