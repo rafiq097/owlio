@@ -49,6 +49,16 @@ export async function getLC2(id) {
     }
 }
 
+export async function getLC3(id) {
+    try {
+        const res = await fetch(`/api/problem?id=${id}`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return await res.json();
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 export async function getCC(C2, id) {
     try {
         const res = await fetch(`${C2}${id}`, {
