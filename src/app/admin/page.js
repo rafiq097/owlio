@@ -44,16 +44,16 @@ export default function AdminPage() {
     );
   }
 
-  const renderFriendsList = (friends) => {
+  const display = (friends) => {
     if (!friends || friends.length === 0) {
       return <span className="text-gray-400 italic">None</span>;
     }
-    
+
     return (
       <div className="flex flex-wrap gap-1">
         {friends.map((friend, idx) => (
-          <span 
-            key={idx} 
+          <span
+            key={idx}
             className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full flex items-center"
           >
             <User size={12} className="mr-1" />
@@ -75,6 +75,12 @@ export default function AdminPage() {
                   <div className="flex items-center">
                     <User size={14} className="mr-1" />
                     Email
+                  </div>
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <div className="flex items-center">
+                    <UserCog size={14} className="mr-1" />
+                    Times
                   </div>
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -114,13 +120,29 @@ export default function AdminPage() {
                       </div>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                      {user.times && user.times.length > 0 ? (
+                        <div className="grid grid-cols-2 gap-1">
+                          {user.times.map((time, idx) => (
+                            <span
+                              key={idx}
+                              className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded"
+                            >
+                              {time}
+                            </span>
+                          ))}
+                        </div>
+                      ) : (
+                        <span className="text-gray-400 italic">None</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
                       {user.leetcode || <span className="text-gray-400 italic">-</span>}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
                       {user.codechef || <span className="text-gray-400 italic">-</span>}
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-500">
-                      {renderFriendsList(user.friends)}
+                      {display(user.friends)}
                     </td>
                   </tr>
                 ))
@@ -128,7 +150,7 @@ export default function AdminPage() {
             </tbody>
           </table>
         </div>
-        
+
         <div className="px-4 py-3 bg-gray-50 border-t border-gray-200 text-xs text-right text-gray-500">
           Total users: {users.length}
         </div>
