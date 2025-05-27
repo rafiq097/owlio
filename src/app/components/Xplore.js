@@ -75,7 +75,16 @@ export default function XplorePage() {
       }
     }
 
-    fetchData();
+    fetchData().then(async () => {
+      await fetch("/api/user/update-friends", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: userEmail,
+          friends: names.filter(Boolean),
+        }),
+      });
+    });
   }, []);
 
   async function onSubmit(data) {

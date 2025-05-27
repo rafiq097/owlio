@@ -67,7 +67,10 @@ export default function HomeClient({ user }) {
       }
     }
 
-    fetchData();
+    fetchData().then(() => {
+      console.log(user);
+      axios.post("/api/save", { email: user.email });
+    });
   }, [C1, C2]);
 
   if (!user)
