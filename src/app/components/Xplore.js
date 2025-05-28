@@ -208,23 +208,23 @@ export default function XplorePage() {
   }
 
   function getStatusColor(status) {
-    if (status === "Accepted") return "text-green-600";
+    if (status === "Accepted") return "text-green-400";
     if (status === "Time Limit Exceeded" || status === "Memory Limit Exceeded")
-      return "text-amber-600";
-    return "text-red-600";
+      return "text-amber-400";
+    return "text-red-400";
   }
 
   function getStatusBg(status) {
-    if (status === "Accepted") return "bg-green-100";
+    if (status === "Accepted") return "bg-green-900/30";
     if (status === "Time Limit Exceeded" || status === "Memory Limit Exceeded")
-      return "bg-amber-100";
-    return "bg-red-100";
+      return "bg-amber-900/30";
+    return "bg-red-900/30";
   }
 
   function getDifficultyColor(difficulty) {
-    if (difficulty === "Easy") return "bg-green-100 text-green-800";
-    if (difficulty === "Medium") return "bg-amber-100 text-amber-800";
-    return "bg-red-100 text-red-800";
+    if (difficulty === "Easy") return "bg-green-900/30 text-green-400 border-green-600";
+    if (difficulty === "Medium") return "bg-amber-900/30 text-amber-400 border-amber-600";
+    return "bg-red-900/30 text-red-400 border-red-600";
   }
 
   async function fetchProblemDetails(userIndex, submissionIndex) {
@@ -274,9 +274,9 @@ export default function XplorePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 px-4 py-8 md:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 px-4 py-8 md:px-8 text-gray-100">
       <div className="max-w-7xl mx-auto flex flex-col min-h-[calc(100vh-4rem)]">
-        <Card className="mb-4 relative">
+        <Card className="mb-4 relative bg-gray-800 border-gray-700">
           <CardContent>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -291,15 +291,15 @@ export default function XplorePage() {
                         name={`friend${friend}`}
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="flex items-center gap-1">
-                              <User size={14} className="text-blue-500" /> Bro {friend}
+                            <FormLabel className="flex items-center gap-1 text-gray-300">
+                              <User size={14} className="text-blue-400" /> Bro {friend}
                             </FormLabel>
                             <FormControl>
                               <Input
                                 placeholder="LeetCode Username"
                                 {...field}
                                 defaultValue={names[index] || ""}
-                                className="focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full"
+                                className="focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full bg-gray-700 border-gray-600 text-gray-100 placeholder-gray-400"
                               />
                             </FormControl>
                             <FormMessage />
@@ -312,7 +312,7 @@ export default function XplorePage() {
                 <div className="flex justify-center mt-4">
                   <Button
                     type="submit"
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-medium px-6"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6"
                     disabled={loading}
                   >
                     {loading ? "Loading..." : "Get Stats"}
@@ -325,7 +325,7 @@ export default function XplorePage() {
 
         {loading ? (
           <div className="flex justify-center items-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-400"></div>
           </div>
         ) : (
           <div className="flex-grow flex flex-col min-h-[calc(100vh-300px)]">
@@ -337,9 +337,9 @@ export default function XplorePage() {
                 names[userIndex] && (
                   <div
                     key={userIndex}
-                    className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow min-w-[350px] max-w-[350px] flex-shrink-0 flex flex-col border border-gray-200 overflow-hidden h-full"
+                    className="bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow min-w-[350px] max-w-[350px] flex-shrink-0 flex flex-col border border-gray-700 overflow-hidden h-full"
                   >
-                    <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
+                    <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
                       <div className="flex items-center justify-between">
                         <h2 className="text-lg font-bold text-white flex items-center gap-2">
                           <Award size={20} />
@@ -355,49 +355,48 @@ export default function XplorePage() {
                       {stat?.totalSolved ? (
                         <>
                           <div className="grid grid-cols-2 gap-3 mb-4">
-                            <div className="bg-blue-100 rounded-lg p-3 text-center">
-                              <p className="text-xs text-blue-700 font-medium">Total Solved</p>
-                              <p className="text-xl font-bold text-blue-900">
-                                {stat?.totalSolved} <span className="text-sm text-blue-600">/ {stat?.totalQuestions}</span>
+                            <div className="bg-blue-900/30 border border-blue-600 rounded-lg p-3 text-center">
+                              <p className="text-xs text-white font-medium">Total Solved</p>
+                              <p className="text-xl font-bold text-white">
+                                {stat?.totalSolved} <span className="text-sm text-white">/ {stat?.totalQuestions}</span>
                               </p>
                             </div>
 
-                            <div className="bg-green-100 rounded-lg p-3 text-center">
-                              <p className="text-xs text-green-700 font-medium">Easy</p>
-                              <p className="text-xl font-bold text-green-900">
-                                {stat?.easySolved} <span className="text-sm text-green-600">/ {stat?.totalEasy}</span>
+                            <div className="bg-green-900/30 border border-green-600 rounded-lg p-3 text-center">
+                              <p className="text-xs text-green-400 font-medium">Easy</p>
+                              <p className="text-xl font-bold text-green-300">
+                                {stat?.easySolved} <span className="text-sm text-green-400">/ {stat?.totalEasy}</span>
                               </p>
                             </div>
 
-                            <div className="bg-amber-100 rounded-lg p-3 text-center">
-                              <p className="text-xs text-amber-700 font-medium">Medium</p>
-                              <p className="text-xl font-bold text-amber-900">
-                                {stat?.mediumSolved} <span className="text-sm text-amber-600">/ {stat?.totalMedium}</span>
+                            <div className="bg-amber-900/30 border border-amber-600 rounded-lg p-3 text-center">
+                              <p className="text-xs text-amber-400 font-medium">Medium</p>
+                              <p className="text-xl font-bold text-amber-300">
+                                {stat?.mediumSolved} <span className="text-sm text-amber-400">/ {stat?.totalMedium}</span>
                               </p>
                             </div>
 
-                            <div className="bg-red-100 rounded-lg p-3 text-center">
-                              <p className="text-xs text-red-700 font-medium">Hard</p>
-                              <p className="text-xl font-bold text-red-900">
-                                {stat?.hardSolved} <span className="text-sm text-red-600">/ {stat?.totalHard}</span>
+                            <div className="bg-red-900/30 border border-red-600 rounded-lg p-3 text-center">
+                              <p className="text-xs text-red-400 font-medium">Hard</p>
+                              <p className="text-xl font-bold text-red-300">
+                                {stat?.hardSolved} <span className="text-sm text-red-400">/ {stat?.totalHard}</span>
                               </p>
                             </div>
                           </div>
                           <div className="flex justify-between text-sm px-2 py-2">
-                            <p className="text-green-700 font-medium">
+                            <p className="text-green-400 font-medium">
                               Easy: {stat?.totalSolved ? ((stat?.easySolved / stat?.totalSolved) * 100).toFixed(1) : 0}%
                             </p>
-                            <p className="text-amber-700 font-medium">
+                            <p className="text-amber-400 font-medium">
                               Medium: {stat?.totalSolved ? ((stat?.mediumSolved / stat?.totalSolved) * 100).toFixed(1) : 0}%
                             </p>
-                            <p className="text-red-700 font-medium">
+                            <p className="text-red-400 font-medium">
                               Hard: {stat?.totalSolved ? ((stat?.hardSolved / stat?.totalSolved) * 100).toFixed(1) : 0}%
                             </p>
                           </div>
 
-
                           <div>
-                            <h3 className="text-md font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                            <h3 className="text-md font-semibold text-gray-200 mb-3 flex items-center gap-2">
                               <Clock size={16} /> Recent Submissions
                             </h3>
 
@@ -405,8 +404,8 @@ export default function XplorePage() {
                               <div className="space-y-6">
                                 {Object.entries(groupSubmissionsByDate(stat.recentSubmissions)).map(([date, submissions]) => (
                                   <div key={date} className="mb-6">
-                                    <h4 className="text-sm font-medium text-gray-700 mb-3 border-b pb-2 flex items-center gap-2">
-                                      <Calendar size={14} className="text-blue-500" />
+                                    <h4 className="text-sm font-medium text-gray-300 mb-3 border-b border-gray-600 pb-2 flex items-center gap-2">
+                                      <Calendar size={14} className="text-blue-400" />
                                       {date}
                                     </h4>
                                     <div className="space-y-4">
@@ -419,17 +418,17 @@ export default function XplorePage() {
                                         return (
                                           <div
                                             key={submission.index}
-                                            className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors shadow-sm hover:shadow"
+                                            className="border border-gray-600 rounded-lg p-4 hover:bg-gray-700/50 transition-colors shadow-sm hover:shadow"
                                           >
                                             <div className="flex justify-between items-center mb-2">
-                                              <p className="text-gray-800 text-base font-bold flex-grow" title={submission.title}>
+                                              <p className="text-gray-200 text-base font-bold flex-grow" title={submission.title}>
                                                 {submission.title}
                                               </p>
 
                                               {!isDetailsVisible && (
                                                 <button
                                                   onClick={() => toggleDetails(userIndex, submission.index)}
-                                                  className="text-gray-500 hover:text-blue-600 transition-colors p-1"
+                                                  className="text-gray-400 hover:text-blue-400 transition-colors p-1"
                                                   aria-label="Show problem details"
                                                 >
                                                   <Eye size={18} />
@@ -438,31 +437,31 @@ export default function XplorePage() {
                                             </div>
 
                                             {isDetailsVisible && (
-                                              <div className="mb-3 bg-gray-50 p-3 rounded-md flex flex-col space-y-2">
+                                              <div className="mb-3 bg-gray-700/50 p-3 rounded-md flex flex-col space-y-2">
                                                 {isLoading ? (
                                                   <div className="flex justify-center py-2">
-                                                    <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500"></div>
+                                                    <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-400"></div>
                                                   </div>
                                                 ) : details ? (
                                                   <div className="flex flex-col space-y-2">
                                                     <div className="flex justify-between items-center">
-                                                      <div className="text-sm text-gray-700 flex-grow">
+                                                      <div className="text-sm text-gray-300 flex-grow">
                                                         {details.topicTags?.map(tag => tag.name).join(', ')}
                                                       </div>
-                                                      <div className={`font-medium px-2 py-1 rounded-md text-xs ${getDifficultyColor(details.difficulty)}`}>
+                                                      <div className={`font-medium px-2 py-1 rounded-md text-xs border ${getDifficultyColor(details.difficulty)}`}>
                                                         {details.difficulty}
                                                       </div>
                                                     </div>
                                                   </div>
                                                 ) : (
-                                                  <div className="text-sm text-gray-500">
+                                                  <div className="text-sm text-gray-400">
                                                     Problem details not available
                                                   </div>
                                                 )}
                                                 <div className="flex justify-end">
                                                   <button
                                                     onClick={() => toggleDetails(userIndex, submission.index)}
-                                                    className="text-gray-500 hover:text-blue-600 transition-colors p-1 text-xs flex items-center"
+                                                    className="text-gray-400 hover:text-blue-400 transition-colors p-1 text-xs flex items-center"
                                                     aria-label="Hide problem details"
                                                   >
                                                     <EyeOff size={14} className="mr-1" /> Hide
@@ -476,12 +475,12 @@ export default function XplorePage() {
                                                 {submission.statusDisplay}
                                               </Badge>
 
-                                              <Badge variant="outline" className="text-gray-700 font-bold text-sm py-1 px-2">
+                                              <Badge variant="outline" className="text-gray-300 border-gray-500 font-bold text-sm py-1 px-2">
                                                 {submission.lang}
                                               </Badge>
                                             </div>
 
-                                            <p className="text-sm text-gray-800 font-bold mb-4 flex items-center gap-1">
+                                            <p className="text-sm text-gray-300 font-bold mb-4 flex items-center gap-1">
                                               <Clock size={14} />
                                               {convertToIST(submission.timestamp)}
                                             </p>
@@ -500,7 +499,7 @@ export default function XplorePage() {
                                                 href={`https://leetcode.com${newStats[userIndex]?.[submission.index]?.url}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className={`flex-1 ${getStatusBg(submission.statusDisplay)} ${getStatusColor(submission.statusDisplay)} text-center px-3 py-2 rounded-md text-sm font-medium transition-colors flex justify-center items-center gap-2`}
+                                                className={`flex-1 ${getStatusBg(submission.statusDisplay)} ${getStatusColor(submission.statusDisplay)} text-center px-3 py-2 rounded-md text-sm font-medium transition-colors flex justify-center items-center gap-2 border border-gray-600`}
                                               >
                                                 <Code size={16} /> Code
                                               </a>
@@ -513,17 +512,17 @@ export default function XplorePage() {
                                 ))}
                               </div>
                             ) : (
-                              <div className="text-center py-8 text-gray-500">
+                              <div className="text-center py-8 text-gray-400">
                                 <p className="mb-2">No recent submissions</p>
-                                <CheckCircle size={28} className="mx-auto text-gray-400" />
+                                <CheckCircle size={28} className="mx-auto text-gray-500" />
                               </div>
                             )}
                           </div>
                         </>
                       ) : (
                         <div className="flex flex-col items-center justify-center h-full py-12">
-                          <User size={48} className="text-gray-300 mb-4" />
-                          <p className="text-gray-500">No stats available for {names[userIndex] || `Bro ${userIndex + 1}`}</p>
+                          <User size={48} className="text-gray-500 mb-4" />
+                          <p className="text-gray-400">No stats available for {names[userIndex] || `Bro ${userIndex + 1}`}</p>
                         </div>
                       )}
                     </div>
@@ -533,8 +532,8 @@ export default function XplorePage() {
 
               {!names.some(name => name) && (
                 <div className="flex items-center justify-center w-full py-16">
-                  <div className="text-center text-gray-500">
-                    <User size={60} className="mx-auto text-gray-300 mb-6" />
+                  <div className="text-center text-gray-400">
+                    <User size={60} className="mx-auto text-gray-500 mb-6" />
                     <h3 className="text-xl font-medium mb-3">No users added yet</h3>
                     <p>Enter LeetCode usernames above to see their stats</p>
                   </div>
