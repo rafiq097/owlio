@@ -47,7 +47,7 @@ export default function XplorePage() {
             friends: usernames.filter(Boolean),
           }),
         });
-      }   
+      }
 
       if (usernames.some(username => username)) {
         setLoading(true);
@@ -117,7 +117,7 @@ export default function XplorePage() {
           friends: usernames.filter(Boolean),
         }),
       });
-    }    
+    }
 
     const updatedStats = await Promise.all(
       usernames.map(async (username) => {
@@ -229,19 +229,19 @@ export default function XplorePage() {
 
   async function fetchProblemDetails(userIndex, submissionIndex) {
     const titleSlug = newStats[userIndex]?.[submissionIndex]?.titleSlug;
-    
+
     if (!titleSlug) return;
-    
+
     const detailKey = `${userIndex}-${submissionIndex}`;
-    
+
     setLoadingDetails(prev => ({
       ...prev,
       [detailKey]: true
     }));
-    
+
     try {
       const details = await getLC3(titleSlug);
-      
+
       setProblemDetails(prev => ({
         ...prev,
         [detailKey]: details
@@ -258,17 +258,17 @@ export default function XplorePage() {
 
   const toggleDetails = async (userIndex, submissionIndex) => {
     const detailKey = `${userIndex}-${submissionIndex}`;
-    
+
     setVisibleDetails(prev => {
       const newState = {
         ...prev,
         [detailKey]: !prev[detailKey]
       };
-      
+
       if (newState[detailKey] && !problemDetails[detailKey]) {
         fetchProblemDetails(userIndex, submissionIndex);
       }
-      
+
       return newState;
     });
   };
@@ -383,6 +383,18 @@ export default function XplorePage() {
                               </p>
                             </div>
                           </div>
+                          <div className="flex justify-between text-sm px-2 py-2">
+                            <p className="text-green-700 font-medium">
+                              Easy: {stat?.totalSolved ? ((stat?.easySolved / stat?.totalSolved) * 100).toFixed(1) : 0}%
+                            </p>
+                            <p className="text-amber-700 font-medium">
+                              Medium: {stat?.totalSolved ? ((stat?.mediumSolved / stat?.totalSolved) * 100).toFixed(1) : 0}%
+                            </p>
+                            <p className="text-red-700 font-medium">
+                              Hard: {stat?.totalSolved ? ((stat?.hardSolved / stat?.totalSolved) * 100).toFixed(1) : 0}%
+                            </p>
+                          </div>
+
 
                           <div>
                             <h3 className="text-md font-semibold text-gray-800 mb-3 flex items-center gap-2">
@@ -403,7 +415,7 @@ export default function XplorePage() {
                                         const isDetailsVisible = visibleDetails[detailKey];
                                         const details = problemDetails[detailKey];
                                         const isLoading = loadingDetails[detailKey];
-                                        
+
                                         return (
                                           <div
                                             key={submission.index}
