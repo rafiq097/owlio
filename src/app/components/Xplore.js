@@ -274,7 +274,7 @@ export default function XplorePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 px-4 py-8 md:px-8 text-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 px-4 py-8 md:px-8 text-gray-100">
       <div className="max-w-7xl mx-auto flex flex-col min-h-[calc(100vh-4rem)]">
         <Card className="mb-4 relative bg-gray-800 border-gray-700">
           <CardContent>

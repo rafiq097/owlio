@@ -22,7 +22,7 @@ export default function LogoutButton() {
       <input type="hidden" name="csrfToken" value={csrfToken} />
       <button
         type="submit"
-        className="flex items-center gap-2 text-gray-700 hover:text-red-800 font-medium"
+        className="flex items-center gap-2 text-gray-400 hover:text-red-800 font-medium"
       >
         <LogOut size={18} />
         Logout

@@ -113,7 +113,7 @@ export default function HomeClient({ user }) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-100">
+      <div className="flex items-center justify-center h-screen bg-gray-800">
         <div className="text-center space-y-4">
           <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
           <p className="text-gray-600 font-medium">Loading ...</p>
@@ -123,110 +123,110 @@ export default function HomeClient({ user }) {
   }
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+    <div className="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen">
       <div className="container mx-auto p-4 md:p-8">
         {/* Header */}
 
         {/* Stats Summary Cards */}
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-8">
-          <div className="bg-white rounded-xl shadow-md p-4 flex items-center space-x-4 border-l-4 border-blue-500">
-            <div className="bg-blue-100 p-3 rounded-lg">
-              <Code className="w-6 h-6 text-blue-500" />
+          <div className="bg-gray-800 rounded-xl shadow-lg p-4 flex items-center space-x-4 border-l-4 border-blue-500 hover:shadow-xl transition-shadow">
+            <div className="bg-blue-900/30 border border-blue-600 p-3 rounded-lg">
+              <Code className="w-6 h-6 text-blue-400" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Total Solved (LeetCode)</p>
-              <p className="text-xl font-bold">{lc.totalSolved || 0} / {lc.totalQuestions || 0}</p>
+              <p className="text-sm text-gray-400">Total Solved (LeetCode)</p>
+              <p className="text-xl font-bold text-gray-100">{lc.totalSolved || 0} / {lc.totalQuestions || 0}</p>
             </div>
           </div>
           
-          <div className="bg-white rounded-xl shadow-md p-4 flex items-center space-x-4 border-l-4 border-green-500">
-            <div className="bg-green-100 p-3 rounded-lg">
-              <Trophy className="w-6 h-6 text-green-500" />
+          <div className="bg-gray-800 rounded-xl shadow-lg p-4 flex items-center space-x-4 border-l-4 border-green-500 hover:shadow-xl transition-shadow">
+            <div className="bg-green-900/30 border border-green-600 p-3 rounded-lg">
+              <Trophy className="w-6 h-6 text-green-400" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">LeetCode Ranking</p>
-              <p className="text-xl font-bold">#{lc.ranking || 'N/A'}</p>
+              <p className="text-sm text-gray-400">LeetCode Ranking</p>
+              <p className="text-xl font-bold text-gray-100">#{lc.ranking || 'N/A'}</p>
             </div>
           </div>
           
-          <div className="bg-white rounded-xl shadow-md p-4 flex items-center space-x-4 border-l-4 border-purple-500">
-            <div className="bg-purple-100 p-3 rounded-lg">
-              <Award className="w-6 h-6 text-purple-500" />
+          <div className="bg-gray-800 rounded-xl shadow-lg p-4 flex items-center space-x-4 border-l-4 border-purple-500 hover:shadow-xl transition-shadow">
+            <div className="bg-purple-900/30 border border-purple-600 p-3 rounded-lg">
+              <Award className="w-6 h-6 text-purple-400" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">CodeChef Rating</p>
-              <p className="text-xl font-bold">{cc.currentRating || 'N/A'}</p>
+              <p className="text-sm text-gray-400">CodeChef Rating</p>
+              <p className="text-xl font-bold text-gray-100">{cc.currentRating || 'N/A'}</p>
             </div>
           </div>
           
-          <div className="bg-white rounded-xl shadow-md p-4 flex items-center space-x-4 border-l-4 border-yellow-500">
-            <div className="bg-yellow-100 p-3 rounded-lg">
-              <Star className="w-6 h-6 text-yellow-500" />
+          <div className="bg-gray-800 rounded-xl shadow-lg p-4 flex items-center space-x-4 border-l-4 border-yellow-500 hover:shadow-xl transition-shadow">
+            <div className="bg-yellow-900/30 border border-yellow-600 p-3 rounded-lg">
+              <Star className="w-6 h-6 text-yellow-400" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">CodeChef Stars</p>
-              <p className="text-xl font-bold">{cc.stars || 'N/A'}</p>
+              <p className="text-sm text-gray-400">CodeChef Stars</p>
+              <p className="text-xl font-bold text-gray-100">{cc.stars || 'N/A'}</p>
             </div>
           </div>
         </div>
 
         <div className="grid gap-8 grid-cols-1 lg:grid-cols-2">
           {/* LeetCode Section */}
-          <div className="bg-white shadow-lg rounded-xl overflow-hidden">
-            <div className="bg-blue-500 text-white p-4 flex items-center space-x-3">
+          <div className="bg-gray-800 shadow-lg rounded-xl overflow-hidden border border-gray-700">
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 flex items-center space-x-3">
               <Code className="w-6 h-6" />
               <h2 className="text-xl font-semibold">LeetCode Stats</h2>
             </div>
             <div className="p-6">
               <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-blue-50 rounded-lg p-4 text-center">
-                  <p className="text-sm text-gray-500">Easy</p>
-                  <p className="text-2xl font-bold text-blue-600">{lc.easySolved || 0} <span className="text-gray-400 text-sm font-normal">/ {lc.totalEasy || 0}</span></p>
+                <div className="bg-green-900/30 border border-green-600 rounded-lg p-4 text-center">
+                  <p className="text-sm text-green-400">Easy</p>
+                  <p className="text-2xl font-bold text-green-300">{lc.easySolved || 0} <span className="text-gray-400 text-sm font-normal">/ {lc.totalEasy || 0}</span></p>
                 </div>
-                <div className="bg-blue-50 rounded-lg p-4 text-center">
-                  <p className="text-sm text-gray-500">Medium</p>
-                  <p className="text-2xl font-bold text-yellow-600">{lc.mediumSolved || 0} <span className="text-gray-400 text-sm font-normal">/ {lc.totalMedium || 0}</span></p>
+                <div className="bg-amber-900/30 border border-amber-600 rounded-lg p-4 text-center">
+                  <p className="text-sm text-amber-400">Medium</p>
+                  <p className="text-2xl font-bold text-amber-300">{lc.mediumSolved || 0} <span className="text-gray-400 text-sm font-normal">/ {lc.totalMedium || 0}</span></p>
                 </div>
-                <div className="bg-blue-50 rounded-lg p-4 text-center">
-                  <p className="text-sm text-gray-500">Hard</p>
-                  <p className="text-2xl font-bold text-red-600">{lc.hardSolved || 0} <span className="text-gray-400 text-sm font-normal">/ {lc.totalHard || 0}</span></p>
+                <div className="bg-red-900/30 border border-red-600 rounded-lg p-4 text-center">
+                  <p className="text-sm text-red-400">Hard</p>
+                  <p className="text-2xl font-bold text-red-300">{lc.hardSolved || 0} <span className="text-gray-400 text-sm font-normal">/ {lc.totalHard || 0}</span></p>
                 </div>
-                <div className="bg-blue-50 rounded-lg p-4 text-center">
-                  <p className="text-sm text-gray-500">Contribution</p>
-                  <p className="text-2xl font-bold text-green-600">{lc.contributionPoint || 0}</p>
+                <div className="bg-blue-900/30 border border-blue-600 rounded-lg p-4 text-center">
+                  <p className="text-sm text-blue-400">Contribution</p>
+                  <p className="text-2xl font-bold text-blue-300">{lc.contributionPoint || 0}</p>
                 </div>
               </div>
-              <div className="flex items-center justify-between p-2 bg-blue-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-gray-700/50 rounded-lg border border-gray-600">
                 <div className="flex items-center space-x-2">
-                  <Trophy className="w-5 h-5 text-blue-500" />
-                  <span className="text-gray-700">Ranking</span>
+                  <Trophy className="w-5 h-5 text-blue-400" />
+                  <span className="text-gray-300">Ranking</span>
                 </div>
-                <span className="font-bold">#{lc.ranking || 'N/A'}</span>
+                <span className="font-bold text-gray-100">#{lc.ranking || 'N/A'}</span>
               </div>
-              <div className="mt-2 flex items-center justify-between p-2 bg-blue-50 rounded-lg">
+              <div className="mt-2 flex items-center justify-between p-3 bg-gray-700/50 rounded-lg border border-gray-600">
                 <div className="flex items-center space-x-2">
-                  <Star className="w-5 h-5 text-blue-500" />
-                  <span className="text-gray-700">Reputation</span>
+                  <Star className="w-5 h-5 text-blue-400" />
+                  <span className="text-gray-300">Reputation</span>
                 </div>
-                <span className="font-bold">{lc.reputation || 0}</span>
+                <span className="font-bold text-gray-100">{lc.reputation || 0}</span>
               </div>
             </div>
           </div>
 
           {/* CodeChef Section */}
-          <div className="bg-white shadow-lg rounded-xl overflow-hidden">
-            <div className="bg-purple-500 text-white p-4 flex items-center space-x-3">
+          <div className="bg-gray-800 shadow-lg rounded-xl overflow-hidden border border-gray-700">
+            <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 flex items-center space-x-3">
               <Award className="w-6 h-6" />
               <h2 className="text-xl font-semibold">CodeChef Stats</h2>
             </div>
             <div className="p-6">
               <div className="flex items-center space-x-4 mb-6">
-                <div className="bg-purple-100 p-4 rounded-full">
-                  <User className="w-8 h-8 text-purple-500" />
+                <div className="bg-purple-900/30 border border-purple-600 p-4 rounded-full">
+                  <User className="w-8 h-8 text-purple-400" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold">{cc.name || 'User'}</p>
-                  <div className="flex items-center space-x-1 text-yellow-500">
+                  <p className="text-2xl font-bold text-gray-100">{cc.name || 'User'}</p>
+                  <div className="flex items-center space-x-1 text-yellow-400">
                     {[...Array(cc.stars?.length || 0)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 fill-current" />
                     ))}
@@ -235,38 +235,38 @@ export default function HomeClient({ user }) {
               </div>
               
               <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-purple-50 rounded-lg p-4 text-center">
-                  <p className="text-sm text-gray-500">Current Rating</p>
-                  <p className="text-2xl font-bold text-purple-600">{cc.currentRating || 'N/A'}</p>
+                <div className="bg-purple-900/30 border border-purple-600 rounded-lg p-4 text-center">
+                  <p className="text-sm text-purple-400">Current Rating</p>
+                  <p className="text-2xl font-bold text-purple-300">{cc.currentRating || 'N/A'}</p>
                 </div>
-                <div className="bg-purple-50 rounded-lg p-4 text-center">
-                  <p className="text-sm text-gray-500">Highest Rating</p>
-                  <p className="text-2xl font-bold text-purple-600">{cc.highestRating || 'N/A'}</p>
+                <div className="bg-purple-900/30 border border-purple-600 rounded-lg p-4 text-center">
+                  <p className="text-sm text-purple-400">Highest Rating</p>
+                  <p className="text-2xl font-bold text-purple-300">{cc.highestRating || 'N/A'}</p>
                 </div>
               </div>
               
-              <div className="flex items-center justify-between p-2 bg-purple-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-gray-700/50 rounded-lg border border-gray-600">
                 <div className="flex items-center space-x-2">
-                  <Globe className="w-5 h-5 text-purple-500" />
-                  <span className="text-gray-700">Global Rank</span>
+                  <Globe className="w-5 h-5 text-purple-400" />
+                  <span className="text-gray-300">Global Rank</span>
                 </div>
-                <span className="font-bold">#{cc.globalRank || 'N/A'}</span>
+                <span className="font-bold text-gray-100">#{cc.globalRank || 'N/A'}</span>
               </div>
               
-              <div className="mt-2 flex items-center justify-between p-2 bg-purple-50 rounded-lg">
+              <div className="mt-2 flex items-center justify-between p-3 bg-gray-700/50 rounded-lg border border-gray-600">
                 <div className="flex items-center space-x-2">
-                  <Flag className="w-5 h-5 text-purple-500" />
-                  <span className="text-gray-700">Country Rank ({cc.countryName || 'N/A'})</span>
+                  <Flag className="w-5 h-5 text-purple-400" />
+                  <span className="text-gray-300">Country Rank ({cc.countryName || 'N/A'})</span>
                 </div>
-                <span className="font-bold">#{cc.countryRank || 'N/A'}</span>
+                <span className="font-bold text-gray-100">#{cc.countryRank || 'N/A'}</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Recent Submissions */}
-        <div className="mt-10 bg-white shadow-lg rounded-xl overflow-hidden">
-          <div className="bg-gray-700 text-white p-4 flex items-center space-x-3">
+        <div className="mt-10 bg-gray-800 shadow-lg rounded-xl overflow-hidden border border-gray-700">
+          <div className="bg-gradient-to-r from-gray-700 to-gray-600 text-white p-4 flex items-center space-x-3">
             <List className="w-6 h-6" />
             <h2 className="text-xl font-semibold">Recent Submissions</h2>
           </div>
@@ -275,16 +275,16 @@ export default function HomeClient({ user }) {
             {lc?.recentSubmissions?.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {lc.recentSubmissions.map((submission, index) => (
-                  <div key={index} className="bg-gray-50 p-5 rounded-xl shadow hover:shadow-md transition duration-200">
+                  <div key={index} className="bg-gray-700/50 p-5 rounded-xl shadow border border-gray-600 hover:shadow-lg hover:bg-gray-700/70 transition duration-200">
                     <div className="flex justify-between items-start mb-3">
-                      <h3 className="text-lg font-bold text-gray-800 flex-1 line-clamp-2">{submission.title}</h3>
+                      <h3 className="text-lg font-bold text-gray-200 flex-1 line-clamp-2">{submission.title}</h3>
                       {getStatusIcon(submission.statusDisplay)}
                     </div>
                     
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
-                        <div className="bg-gray-200 p-1 rounded">
-                          <AlertCircle className="w-4 h-4 text-gray-600" />
+                        <div className="bg-gray-600 p-1 rounded">
+                          <AlertCircle className="w-4 h-4 text-gray-300" />
                         </div>
                         <span className={`text-sm ${getStatusColor(submission.statusDisplay)}`}>
                           {submission.statusDisplay}
@@ -292,25 +292,25 @@ export default function HomeClient({ user }) {
                       </div>
                       
                       <div className="flex items-center space-x-2">
-                        <div className="bg-gray-200 p-1 rounded">
-                          <Code className="w-4 h-4 text-gray-600" />
+                        <div className="bg-gray-600 p-1 rounded">
+                          <Code className="w-4 h-4 text-gray-300" />
                         </div>
-                        <span className="text-sm text-gray-600">{submission.lang}</span>
+                        <span className="text-sm text-gray-300">{submission.lang}</span>
                       </div>
                       
                       <div className="flex items-center space-x-2">
-                        <div className="bg-gray-200 p-1 rounded">
-                          <Clock className="w-4 h-4 text-gray-600" />
+                        <div className="bg-gray-600 p-1 rounded">
+                          <Clock className="w-4 h-4 text-gray-300" />
                         </div>
-                        <span className="text-sm text-gray-600">{convertToIST(submission.timestamp)}</span>
+                        <span className="text-sm text-gray-300">{convertToIST(submission.timestamp)}</span>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-12 text-gray-500">
-                <AlertCircle className="w-12 h-12 text-gray-300 mb-3" />
+              <div className="flex flex-col items-center justify-center py-12 text-gray-400">
+                <AlertCircle className="w-12 h-12 text-gray-500 mb-3" />
                 <p className="text-lg">No recent submissions available.</p>
                 <p className="text-sm mt-2">Start solving problems to see your submissions here!</p>
               </div>
