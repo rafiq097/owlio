@@ -312,7 +312,7 @@ export default function XplorePage() {
                 <div className="flex justify-center mt-4">
                   <Button
                     type="submit"
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6"
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-medium px-6"
                     disabled={loading}
                   >
                     {loading ? "Loading..." : "Get Stats"}
@@ -339,7 +339,7 @@ export default function XplorePage() {
                     key={userIndex}
                     className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow min-w-[350px] max-w-[350px] flex-shrink-0 flex flex-col border border-gray-200 overflow-hidden h-full"
                   >
-                    <div className="bg-gradient-to-r from-blue-600 to-blue-800 px-6 py-4">
+                    <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
                       <div className="flex items-center justify-between">
                         <h2 className="text-lg font-bold text-white flex items-center gap-2">
                           <Award size={20} />
