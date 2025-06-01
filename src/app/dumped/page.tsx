@@ -207,6 +207,7 @@ const Page = () => {
 
                                       <div className="flex justify-between items-center mb-3">
                                         <Badge
+                                          variant="outline"
                                           className={`${getStatusBg(
                                             submission.status
                                           )} ${getStatusColor(
