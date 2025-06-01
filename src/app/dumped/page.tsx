@@ -34,8 +34,7 @@ const Page = () => {
   const router = useRouter();
   const [data, setData] = useState<UserSubmissions[]>([]);
   const [loading, setLoading] = useState(true);
-  const allowedEmails =
-    process.env.NEXT_DUMP_ADMIN?.split(",").map((email) => email.trim()) || [];
+  const allowedEmails = process.env.NEXT_DUMP_ADMIN?.split(",").map((email) => email.trim()) || [];
 
   useEffect(() => {
     fetch("/api/dump")
@@ -44,9 +43,9 @@ const Page = () => {
         setData(json);
         setLoading(false);
 
-        if(!session || !allowedEmails.includes(session.user?.email || "")) {
-          return router.push("/");
-        }
+        // if(!session || !allowedEmails.includes(session.user?.email || "")) {
+        //   return router.push("/");
+        // }
       })
       .catch((err) => {
         console.error("Error syncing submissions:", err);
