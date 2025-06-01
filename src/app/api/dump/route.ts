@@ -15,7 +15,7 @@ export const GET = async () => {
     console.log('usernames:', usernames);
 
     for (const username of usernames) {
-      const res = await fetch(`https://leetcode-api-pied.vercel.app/user/${username}/submissions`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_2LC}${username}/submissions`);
       const json = await res.json();
 
       if (!json) continue;
@@ -29,10 +29,9 @@ export const GET = async () => {
         url: `https://leetcode.com${sub.url}`,
       }));
       
-
       const existingRecord = await UserSubmissions.findOne({ username });
 
-      let allSubmissions = [];
+      let finalSubmissions = [];
 
       if (existingRecord) {
         const existingSet = new Set(
@@ -43,24 +42,23 @@ export const GET = async () => {
           sub => !existingSet.has(`${sub.timestamp}-${sub.url}`)
         );
 
-        allSubmissions = [...existingRecord.submissions, ...filteredNew];
+        finalSubmissions = [...filteredNew, ...existingRecord.submissions];
+        
+        console.log(`Found ${filteredNew.length} new submissions for ${username}`);
       } else {
-        allSubmissions = newSubmissions;
+        finalSubmissions = newSubmissions;
       }
 
       await UserSubmissions.findOneAndUpdate(
         { username },
-        { username, submissions: allSubmissions },
+        { username, submissions: finalSubmissions },
         { upsert: true, new: true }
       );
 
-      console.log(`Synced submissions for ${username}: ${allSubmissions.length} entries`);
-    //   console.log(allSubmissions);
+      console.log(`Synced submissions for ${username}: ${finalSubmissions.length} total entries`);
     }
 
-    // return NextResponse.json({ message: 'Submissions synced successfully' });
     const allSubmissions = await UserSubmissions.find({});
-
     return NextResponse.json(allSubmissions);
   } catch (error) {
     console.error('Dump error:', error);
