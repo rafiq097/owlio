@@ -40,10 +40,10 @@ const Page = () => {
   useEffect(() => {
     if (status === "loading") return;
 
-
     const fetchBros = async () => {
       if (!session || !allowedEmails.includes(session.user?.email || "")) {
-        return router.push("/");
+        router.push("/");
+        return;
       }
 
       fetch("/api/dump")
@@ -59,7 +59,7 @@ const Page = () => {
     }
 
     fetchBros();
-  }, []);
+  }, [session, status, router]);
 
   function getDateCategory(timestamp: string) {
     const date = new Date(timestamp);
