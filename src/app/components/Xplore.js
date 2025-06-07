@@ -16,6 +16,7 @@ import { getLC, getLC2, getLC3 } from "@/app/components/Form";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Award, CheckCircle, Clock, Code, User, Calendar, Eye, EyeOff } from "lucide-react";
+import axios from "axios";
 
 export default function XplorePage({ user }) {
   const [stats, setStats] = useState(Array(10).fill({}));
@@ -69,7 +70,7 @@ export default function XplorePage({ user }) {
       }
     }
 
-    fetchData.then(() => {
+    fetchData().then(() => {
       axios.post("/api/save", { email: user.email });
     });
   }, []);
