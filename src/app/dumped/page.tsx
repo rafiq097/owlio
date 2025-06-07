@@ -34,23 +34,31 @@ const Page = () => {
   const router = useRouter();
   const [data, setData] = useState<UserSubmissions[]>([]);
   const [loading, setLoading] = useState(true);
-  const allowedEmails = process.env.NEXT_DUMP_ADMIN?.split(",").map((email) => email.trim()) || [];
+  const allowedEmails = process.env.NEXT_PUBLIC_DUMP_ADMIN?.split(",").map((email) => email.trim()) || [];
+  console.log(allowedEmails);
 
   useEffect(() => {
-    fetch("/api/dump")
-      .then((res) => res.json())
-      .then((json: UserSubmissions[]) => {
-        setData(json);
-        setLoading(false);
+    if (status === "loading") return;
 
-        // if(!session || !allowedEmails.includes(session.user?.email || "")) {
-        //   return router.push("/");
-        // }
-      })
-      .catch((err) => {
-        console.error("Error syncing submissions:", err);
-        setLoading(false);
-      });
+
+    const fetchBros = async () => {
+      if (!session || !allowedEmails.includes(session.user?.email || "")) {
+        return router.push("/");
+      }
+
+      fetch("/api/dump")
+        .then((res) => res.json())
+        .then((json: UserSubmissions[]) => {
+          setData(json);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error syncing submissions:", err);
+          setLoading(false);
+        });
+    }
+
+    fetchBros();
   }, []);
 
   function getDateCategory(timestamp: string) {

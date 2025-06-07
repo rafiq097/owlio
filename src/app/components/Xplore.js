@@ -16,9 +16,8 @@ import { getLC, getLC2, getLC3 } from "@/app/components/Form";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Award, CheckCircle, Clock, Code, User, Calendar, Eye, EyeOff } from "lucide-react";
-import { useSession } from "next-auth/react";
 
-export default function XplorePage() {
+export default function XplorePage({ user }) {
   const [stats, setStats] = useState(Array(10).fill({}));
   const [newStats, setNewStats] = useState(Array(10).fill({}));
   const [names, setNames] = useState([]);
@@ -29,25 +28,20 @@ export default function XplorePage() {
   const form = useForm();
   const scrollContainerRef = useRef(null);
   const formScrollContainerRef = useRef(null);
-  const { data: session } = useSession();
-  const userEmail = session?.user?.email;
+  const userEmail = user?.email;
+
+  useEffect(() => {
+    if (user?.email) {
+      console.log(user);
+      axios.post("/api/save", { email: user.email });
+    }
+  }, [user]);
 
   useEffect(() => {
     async function fetchData() {
       const usernamesString = localStorage.getItem("usernames");
       const usernames = usernamesString ? JSON.parse(usernamesString) : [];
       setNames(usernames);
-
-      if (userEmail) {
-        await fetch("/api/user/update-friends", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: userEmail,
-            friends: usernames.filter(Boolean),
-          }),
-        });
-      }
 
       if (usernames.some(username => username)) {
         setLoading(true);
@@ -75,15 +69,8 @@ export default function XplorePage() {
       }
     }
 
-    fetchData().then(async () => {
-      await fetch("/api/user/update-friends", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: userEmail,
-          friends: names.filter(Boolean),
-        }),
-      });
+    fetchData.then(() => {
+      axios.post("/api/save", { email: user.email });
     });
   }, []);
 
@@ -108,16 +95,14 @@ export default function XplorePage() {
     setNames(usernames);
     localStorage.setItem("usernames", JSON.stringify(usernames));
 
-    if (userEmail) {
-      await fetch("/api/user/update-friends", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: userEmail,
-          friends: usernames.filter(Boolean),
-        }),
-      });
-    }
+    await fetch("/api/user/update-friends", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: userEmail,
+        friends: usernames.filter(Boolean),
+      }),
+    });
 
     const updatedStats = await Promise.all(
       usernames.map(async (username) => {
@@ -346,7 +331,13 @@ export default function XplorePage() {
                           {names[userIndex]}
                         </h2>
                         <Badge variant="secondary" className="bg-white/20 text-white">
-                          Bro {userIndex + 1}
+                          <a
+                            href={`https://leetcode.com/${names[userIndex]}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Bro {userIndex + 1}
+                          </a>
                         </Badge>
                       </div>
                     </div>
