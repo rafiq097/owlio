@@ -319,7 +319,7 @@ export default function XplorePage({ user }) {
               ref={scrollContainerRef}
               className="flex overflow-x-auto py-4 space-x-4"
             >
-              {stats.map((stat, userIndex) => (
+              {stats?.map((stat, userIndex) => (
                 names[userIndex] && (
                   <div
                     key={userIndex}
