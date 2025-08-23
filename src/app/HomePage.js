@@ -4,20 +4,20 @@ import { getLC, getCC } from "@/app/components/Form.js";
 import { useState, useEffect } from "react";
 import { signInWithGoogle } from "@/app/actions/authActions";
 import axios from "axios";
-import { 
-  Code, 
-  Award, 
-  Clock, 
-  CheckCircle, 
-  XCircle, 
-  AlertTriangle, 
-  Globe, 
-  Flag, 
-  User, 
-  Star, 
-  Trophy, 
-  List, 
-  AlertCircle 
+import {
+  Code,
+  Award,
+  Clock,
+  CheckCircle,
+  XCircle,
+  AlertTriangle,
+  Globe,
+  Flag,
+  User,
+  Star,
+  Trophy,
+  List,
+  AlertCircle
 } from "lucide-react";
 
 export default function HomeClient({ user }) {
@@ -135,37 +135,37 @@ export default function HomeClient({ user }) {
             </div>
             <div>
               <p className="text-sm text-gray-400">Total Solved (LeetCode)</p>
-              <p className="text-xl font-bold text-gray-100">{lc.totalSolved || 0} / {lc.totalQuestions || 0}</p>
+              <p className="text-xl font-bold text-gray-100">{lc?.totalSolved || 0} / {lc?.totalQuestions || 0}</p>
             </div>
           </div>
-          
+
           <div className="bg-gray-800 rounded-xl shadow-lg p-4 flex items-center space-x-4 border-l-4 border-green-500 hover:shadow-xl transition-shadow">
             <div className="bg-green-900/30 border border-green-600 p-3 rounded-lg">
               <Trophy className="w-6 h-6 text-green-400" />
             </div>
             <div>
               <p className="text-sm text-gray-400">LeetCode Ranking</p>
-              <p className="text-xl font-bold text-gray-100">#{lc.ranking || 'N/A'}</p>
+              <p className="text-xl font-bold text-gray-100">#{lc?.ranking || 'N/A'}</p>
             </div>
           </div>
-          
+
           <div className="bg-gray-800 rounded-xl shadow-lg p-4 flex items-center space-x-4 border-l-4 border-purple-500 hover:shadow-xl transition-shadow">
             <div className="bg-purple-900/30 border border-purple-600 p-3 rounded-lg">
               <Award className="w-6 h-6 text-purple-400" />
             </div>
             <div>
               <p className="text-sm text-gray-400">CodeChef Rating</p>
-              <p className="text-xl font-bold text-gray-100">{cc.currentRating || 'N/A'}</p>
+              <p className="text-xl font-bold text-gray-100">{cc?.currentRating || 'N/A'}</p>
             </div>
           </div>
-          
+
           <div className="bg-gray-800 rounded-xl shadow-lg p-4 flex items-center space-x-4 border-l-4 border-yellow-500 hover:shadow-xl transition-shadow">
             <div className="bg-yellow-900/30 border border-yellow-600 p-3 rounded-lg">
               <Star className="w-6 h-6 text-yellow-400" />
             </div>
             <div>
               <p className="text-sm text-gray-400">CodeChef Stars</p>
-              <p className="text-xl font-bold text-gray-100">{cc.stars || 'N/A'}</p>
+              <p className="text-xl font-bold text-gray-100">{cc?.stars || 'N/A'}</p>
             </div>
           </div>
         </div>
@@ -181,19 +181,19 @@ export default function HomeClient({ user }) {
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="bg-green-900/30 border border-green-600 rounded-lg p-4 text-center">
                   <p className="text-sm text-green-400">Easy</p>
-                  <p className="text-2xl font-bold text-green-300">{lc.easySolved || 0} <span className="text-gray-400 text-sm font-normal">/ {lc.totalEasy || 0}</span></p>
+                  <p className="text-2xl font-bold text-green-300">{lc?.easySolved || 0} <span className="text-gray-400 text-sm font-normal">/ {lc?.totalEasy || 0}</span></p>
                 </div>
                 <div className="bg-amber-900/30 border border-amber-600 rounded-lg p-4 text-center">
                   <p className="text-sm text-amber-400">Medium</p>
-                  <p className="text-2xl font-bold text-amber-300">{lc.mediumSolved || 0} <span className="text-gray-400 text-sm font-normal">/ {lc.totalMedium || 0}</span></p>
+                  <p className="text-2xl font-bold text-amber-300">{lc?.mediumSolved || 0} <span className="text-gray-400 text-sm font-normal">/ {lc?.totalMedium || 0}</span></p>
                 </div>
                 <div className="bg-red-900/30 border border-red-600 rounded-lg p-4 text-center">
                   <p className="text-sm text-red-400">Hard</p>
-                  <p className="text-2xl font-bold text-red-300">{lc.hardSolved || 0} <span className="text-gray-400 text-sm font-normal">/ {lc.totalHard || 0}</span></p>
+                  <p className="text-2xl font-bold text-red-300">{lc?.hardSolved || 0} <span className="text-gray-400 text-sm font-normal">/ {lc?.totalHard || 0}</span></p>
                 </div>
                 <div className="bg-blue-900/30 border border-blue-600 rounded-lg p-4 text-center">
                   <p className="text-sm text-blue-400">Contribution</p>
-                  <p className="text-2xl font-bold text-blue-300">{lc.contributionPoint || 0}</p>
+                  <p className="text-2xl font-bold text-blue-300">{lc?.contributionPoint || 0}</p>
                 </div>
               </div>
               <div className="flex items-center justify-between p-3 bg-gray-700/50 rounded-lg border border-gray-600">
@@ -201,14 +201,14 @@ export default function HomeClient({ user }) {
                   <Trophy className="w-5 h-5 text-blue-400" />
                   <span className="text-gray-300">Ranking</span>
                 </div>
-                <span className="font-bold text-gray-100">#{lc.ranking || 'N/A'}</span>
+                <span className="font-bold text-gray-100">#{lc?.ranking || 'N/A'}</span>
               </div>
               <div className="mt-2 flex items-center justify-between p-3 bg-gray-700/50 rounded-lg border border-gray-600">
                 <div className="flex items-center space-x-2">
                   <Star className="w-5 h-5 text-blue-400" />
                   <span className="text-gray-300">Reputation</span>
                 </div>
-                <span className="font-bold text-gray-100">{lc.reputation || 0}</span>
+                <span className="font-bold text-gray-100">{lc?.reputation || 0}</span>
               </div>
             </div>
           </div>
@@ -225,7 +225,7 @@ export default function HomeClient({ user }) {
                   <User className="w-8 h-8 text-purple-400" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-gray-100">{cc.name || 'User'}</p>
+                  <p className="text-2xl font-bold text-gray-100">{cc?.name || 'User'}</p>
                   <div className="flex items-center space-x-1 text-yellow-400">
                     {[...Array(cc.stars?.length || 0)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 fill-current" />
@@ -233,32 +233,32 @@ export default function HomeClient({ user }) {
                   </div>
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="bg-purple-900/30 border border-purple-600 rounded-lg p-4 text-center">
                   <p className="text-sm text-purple-400">Current Rating</p>
-                  <p className="text-2xl font-bold text-purple-300">{cc.currentRating || 'N/A'}</p>
+                  <p className="text-2xl font-bold text-purple-300">{cc?.currentRating || 'N/A'}</p>
                 </div>
                 <div className="bg-purple-900/30 border border-purple-600 rounded-lg p-4 text-center">
                   <p className="text-sm text-purple-400">Highest Rating</p>
-                  <p className="text-2xl font-bold text-purple-300">{cc.highestRating || 'N/A'}</p>
+                  <p className="text-2xl font-bold text-purple-300">{cc?.highestRating || 'N/A'}</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center justify-between p-3 bg-gray-700/50 rounded-lg border border-gray-600">
                 <div className="flex items-center space-x-2">
                   <Globe className="w-5 h-5 text-purple-400" />
                   <span className="text-gray-300">Global Rank</span>
                 </div>
-                <span className="font-bold text-gray-100">#{cc.globalRank || 'N/A'}</span>
+                <span className="font-bold text-gray-100">#{cc?.globalRank || 'N/A'}</span>
               </div>
-              
+
               <div className="mt-2 flex items-center justify-between p-3 bg-gray-700/50 rounded-lg border border-gray-600">
                 <div className="flex items-center space-x-2">
                   <Flag className="w-5 h-5 text-purple-400" />
-                  <span className="text-gray-300">Country Rank ({cc.countryName || 'N/A'})</span>
+                  <span className="text-gray-300">Country Rank ({cc?.countryName || 'N/A'})</span>
                 </div>
-                <span className="font-bold text-gray-100">#{cc.countryRank || 'N/A'}</span>
+                <span className="font-bold text-gray-100">#{cc?.countryRank || 'N/A'}</span>
               </div>
             </div>
           </div>
@@ -270,39 +270,39 @@ export default function HomeClient({ user }) {
             <List className="w-6 h-6" />
             <h2 className="text-xl font-semibold">Recent Submissions</h2>
           </div>
-          
+
           <div className="p-6">
             {lc?.recentSubmissions?.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {lc.recentSubmissions.map((submission, index) => (
+                {lc?.recentSubmissions?.map((submission, index) => (
                   <div key={index} className="bg-gray-700/50 p-5 rounded-xl shadow border border-gray-600 hover:shadow-lg hover:bg-gray-700/70 transition duration-200">
                     <div className="flex justify-between items-start mb-3">
-                      <h3 className="text-lg font-bold text-gray-200 flex-1 line-clamp-2">{submission.title}</h3>
-                      {getStatusIcon(submission.statusDisplay)}
+                      <h3 className="text-lg font-bold text-gray-200 flex-1 line-clamp-2">{submission?.title}</h3>
+                      {getStatusIcon(submission?.statusDisplay)}
                     </div>
-                    
+
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
                         <div className="bg-gray-600 p-1 rounded">
                           <AlertCircle className="w-4 h-4 text-gray-300" />
                         </div>
-                        <span className={`text-sm ${getStatusColor(submission.statusDisplay)}`}>
-                          {submission.statusDisplay}
+                        <span className={`text-sm ${getStatusColor(submission?.statusDisplay)}`}>
+                          {submission?.statusDisplay}
                         </span>
                       </div>
-                      
+
                       <div className="flex items-center space-x-2">
                         <div className="bg-gray-600 p-1 rounded">
                           <Code className="w-4 h-4 text-gray-300" />
                         </div>
-                        <span className="text-sm text-gray-300">{submission.lang}</span>
+                        <span className="text-sm text-gray-300">{submission?.lang}</span>
                       </div>
-                      
+
                       <div className="flex items-center space-x-2">
                         <div className="bg-gray-600 p-1 rounded">
                           <Clock className="w-4 h-4 text-gray-300" />
                         </div>
-                        <span className="text-sm text-gray-300">{convertToIST(submission.timestamp)}</span>
+                        <span className="text-sm text-gray-300">{convertToIST(submission?.timestamp)}</span>
                       </div>
                     </div>
                   </div>
